@@ -754,11 +754,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 6dce334e-89e5-4bba-b2e9-92c30dd64e0a
+  cloudProjectId: f4a9d1b1-e7fb-4aec-bf7e-4c6cc2b1a00f
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 576 final 2
-  organizationId: adamkaluzny
+  projectName: Final Project 2024-12-06_14-56-44
+  organizationId: mfoley481
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
