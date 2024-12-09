@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 2f21907c7553a490ea4d640ccec079ae
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - beakerToClean: {instanceID: 0}
+  - bubbles: {instanceID: 0}
+  - cylinder1: {instanceID: 0}
+  - cylinder2: {instanceID: 0}
+  - beakerAnimator: {instanceID: 0}
+  - cylinder1Animator: {instanceID: 0}
+  - cylinder2Animator: {instanceID: 0}
+  - cleanGlass: {instanceID: 0}
+  - cursorTexture: {fileID: 2800000, guid: cbc7c981b2b9348b5ae2a6264f521493, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
