@@ -299,6 +299,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gradeUI: {fileID: 28157094}
+  purple: {fileID: 2100000, guid: 97b9e9782bcea4b57b56bdd88d47a71e, type: 2}
+  blue: {fileID: 2100000, guid: 94c11be5b5b74c440a5c2fc75dc65d88, type: 2}
+  green: {fileID: 2100000, guid: cf29e9613b332406683246314d4765c9, type: 2}
+  orange_yellow: {fileID: 2100000, guid: 68ddf684650f341dbb33b87675f2f520, type: 2}
+  clear: {fileID: 2100000, guid: 5c4854f1dd0cbe84a92d1ba0e1baffc6, type: 2}
 --- !u!95 &554435206
 Animator:
   serializedVersion: 5
