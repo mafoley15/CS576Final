@@ -100,7 +100,6 @@ public class Pour : MonoBehaviour
         return false;
     }
 
-    // based off of Adam's finishedCleaning method
     public void finishedPouring(){
         float timeToBeat = Time.timeSinceLevelLoad;
         if (timeToBeat < 10){

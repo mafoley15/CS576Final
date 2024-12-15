@@ -54,7 +54,6 @@ public class Mix : MonoBehaviour
         count += 1;
     }
 
-    // based off of Adam's finishedCleaning method
     public void finishedMixing(){
         float timeToBeat = Time.timeSinceLevelLoad;
         if (timeToBeat < (10/3 * goal)){

@@ -18,7 +18,11 @@ public class DecrementScale : MonoBehaviour
         
     }
 
-    public void OnClick(){
-        //scale_script.current_mass;
+    void OnMouseDown(){
+        if(scale_script.unit_in_grams){
+            scale_script.mass -= 1.0f;
+        }else{
+            scale_script.mass -= 0.001f;
+        }
     }
 }
