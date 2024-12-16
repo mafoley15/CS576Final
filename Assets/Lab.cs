@@ -35,7 +35,7 @@ public class Lab : MonoBehaviour
     {
         if(labStep == 0){
             labNum = 1; //will change to set according to which lab user selects on main menu
-            labStep = 11;
+            labStep = 1;
             exclamation.SetActive(false);
         }
     }
