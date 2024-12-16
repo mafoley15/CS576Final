@@ -24,6 +24,9 @@ public class Mix : MonoBehaviour
     public Text directionsText;
     private string directions;
 
+    public AudioSource audioSource;
+    public AudioClip boilingSound;
+
     public Material white;
         GameObject liquid;
     // Start is called before the first frame update
@@ -34,7 +37,7 @@ public class Mix : MonoBehaviour
         goal = 5;
         liquid = GameObject.Find("Erlenmeyer_flask3");
         liquid.GetComponent<Renderer>().material = blue;
-        //Lab.labStep = 11; //remove later
+        //Lab.labStep = 9; //remove later
         boiledOver = false;
         if(Lab.labStep == 6){
             directions = "Tap the flask to mix the solution.";
@@ -64,6 +67,7 @@ public class Mix : MonoBehaviour
                 if(timeToBeat < 9){
                     liquid.GetComponent<Renderer>().material = black;
                     boiledOver = true;
+                    audioSource.PlayOneShot(boilingSound);
                 }else{
                     liquid.GetComponent<Renderer>().material = white;
                 }

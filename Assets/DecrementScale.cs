@@ -6,6 +6,8 @@ public class DecrementScale : MonoBehaviour
 {
     public GameObject test_tube;
     private Scale scale_script;
+    public AudioSource audioSource;
+    public AudioClip clickSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,7 @@ public class DecrementScale : MonoBehaviour
     }
 
     void OnMouseDown(){
+        audioSource.PlayOneShot(clickSound);
         if(scale_script.unit_in_grams){
             scale_script.mass -= 1.0f;
         }else{

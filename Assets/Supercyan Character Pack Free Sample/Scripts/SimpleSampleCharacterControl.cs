@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 
+/*
+This script was taken from Unity Store Asset Pack: 
+https://assetstore.unity.com/packages/3d/characters/humanoids/character-pack-free-sample-79870
+
+It was modified to simplify it, removing unnecessary features while also adding audio clips for when walking
+*/
 namespace Supercyan.FreeSample
 {
     public class SimpleSampleCharacterControl : MonoBehaviour
@@ -14,6 +20,12 @@ namespace Supercyan.FreeSample
         [SerializeField] private Animator animator = null;
         [SerializeField] private Rigidbody rb = null;
 
+        [SerializeField] public AudioSource audioSource;
+        [SerializeField] public AudioClip footstep;
+        [SerializeField] private float interval = 0.4f; // Adjust based on desired interval
+
+        private float stepTimer = 0f;
+
         private void Awake()
         {
             if (!rb) { rb = GetComponent<Rigidbody>(); }
@@ -21,8 +33,22 @@ namespace Supercyan.FreeSample
         }
 
         private void TankUpdate(){
+
             float vert = Input.GetAxis("Vertical");
             float hor = Input.GetAxis("Horizontal");
+
+
+            bool isMoving = Mathf.Abs(vert) > 0.1f;
+
+            if (isMoving){
+                stepTimer += Time.deltaTime;
+                if (stepTimer >= interval){
+                    PlayFootstepSound();
+                    stepTimer = 0f;
+                }
+            } else{
+                stepTimer = 0f; 
+            } 
 
             if (vert < 0){
                 vert *= 0.6f;
@@ -40,6 +66,11 @@ namespace Supercyan.FreeSample
         private void FixedUpdate(){
             animator.SetBool("Grounded", true);
             TankUpdate();
+        }
+
+        private void PlayFootstepSound(){
+            audioSource.volume = 0.15f;
+            audioSource.PlayOneShot(footstep);
         }
     }
 }

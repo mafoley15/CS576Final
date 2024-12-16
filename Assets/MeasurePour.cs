@@ -25,6 +25,9 @@ public class MeasurePour : MonoBehaviour
 
     public Text directionsText;
     private string directions;
+
+    public AudioSource audioSource;
+    public AudioClip pouringSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -74,6 +77,9 @@ public class MeasurePour : MonoBehaviour
             particles.SetActive(true);
             if((z <= -0.65f && z>= -0.77)){
                     // fill beaker
+                if(!audioSource.isPlaying){
+                    audioSource.PlayOneShot(pouringSound);
+                }
                     shifted_scale += 0.001f;
                     waterAmount = (int)(shifted_scale * 100);
                     amount.text = "Amount in Beaker: " + Mathf.Min(800, waterAmount) + " ml";
@@ -81,6 +87,7 @@ public class MeasurePour : MonoBehaviour
             }
         } else{
            particles.SetActive(false);
+           audioSource.Stop();
         }
 
         if(beaker_liquid.transform.localScale.y >= 8.0f){

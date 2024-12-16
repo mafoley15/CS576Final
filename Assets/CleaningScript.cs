@@ -37,6 +37,9 @@ public class CleaningScript : MonoBehaviour
 
     public Text finalGradeUI;
 
+    public AudioSource audioSource;
+    public AudioClip scrubbingSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,7 +66,7 @@ public class CleaningScript : MonoBehaviour
         currentValue = Mathf.Clamp(currentValue, 0, maxValue);
         progressBarFill.fillAmount = currentValue / maxValue;
 
-        Debug.Log(Time.timeSinceLevelLoad);
+        //Debug.Log(Time.timeSinceLevelLoad);
         if(cleaningBeaker && timeCleanedBeaker >= 100){
             beakerAnimator.SetBool("moveDown", true);
             beakerToClean.GetComponent<MeshRenderer> ().material = cleanGlass;
@@ -95,17 +98,31 @@ public class CleaningScript : MonoBehaviour
         if(hit){
             if(cleaningBeaker && raycastHit.transform.name == "BeakerToClean"){
                 timeCleanedBeaker ++;
+                if(!audioSource.isPlaying){
+                    audioSource.volume = 0.1f;
+                    audioSource.PlayOneShot(scrubbingSound);
+                }
+
             }
 
             if(cleaningCylinder1 && raycastHit.transform.name == "CylinderToClean1"){
                 timeCleanedCylinder1 ++;
+                if(!audioSource.isPlaying){
+                    audioSource.volume = 0.1f;
+                    audioSource.PlayOneShot(scrubbingSound);
+                }
             }
 
             if(cleaningCylinder2 && raycastHit.transform.name == "CylinderToClean2"){
                 timeCleanedCylinder2 ++;
+                if(!audioSource.isPlaying){
+                    audioSource.volume = 0.1f;
+                    audioSource.PlayOneShot(scrubbingSound);
+                }
             }
         } else{
             Debug.Log("nothing hit");
+            audioSource.Stop();
         }
     }
 

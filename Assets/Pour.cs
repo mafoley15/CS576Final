@@ -26,6 +26,9 @@ public class Pour : MonoBehaviour
 
     public Text directionsText;
     private string directions;
+
+    public AudioSource audioSource;
+    public AudioClip pourSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,12 +46,12 @@ public class Pour : MonoBehaviour
             beaker_liquid.GetComponent<Renderer>().material = beakerSolutionPurple;
             particles.GetComponent<Renderer>().material = beakerSolutionPurple;
             graduated_cylinder_solution.GetComponent<Renderer>().material = beakerSolutionPurple;
-            directions = "Dissolve a small amount of potassium permanganate into water. Use the arrow keys to move the flask to pour into the beaker.";
+            directions = "Dissolve a small amount of potassium permanganate into water. \n Use the arrow keys to move the flask to pour into the beaker.";
         } else{
             beaker_liquid.GetComponent<Renderer>().material = beakerSolutionWhite;
             particles.GetComponent<Renderer>().material = beakerSolutionWhite;
             graduated_cylinder_solution.GetComponent<Renderer>().material = beakerSolutionWhite;
-            directions = "Dissolve the sugar and sodium hydroxide in the water. Use the arrow keys to move the flask to pour into the beaker.";
+            directions = "Dissolve the sugar and sodium hydroxide in the water. \n Use the arrow keys to move the flask to pour into the beaker.";
         }
         directionsText.text = directions;
     }
@@ -74,10 +77,15 @@ public class Pour : MonoBehaviour
             Move("left");
         }
         if(LiquidReachesBeaker(beaker_position, graduated_cylinder.GetComponent<Transform>().position)){
+            if(!audioSource.isPlaying){
+                audioSource.PlayOneShot(pourSound);
+            }
             if(!beaker_filled){
                 shifted_scale += 0.0001f;
                 beaker_liquid.transform.localScale = new Vector3(1.0f, shifted_scale, 1.0f);
             }
+        } else{
+            audioSource.Stop();
         }
         if(beaker_liquid.transform.localScale.y >= 0.15f){
             beaker_liquid.transform.localScale = new Vector3(1.0f, 0.15f, 1.0f);

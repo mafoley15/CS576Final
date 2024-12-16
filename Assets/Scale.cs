@@ -24,6 +24,11 @@ public class Scale : MonoBehaviour
 
     private string directions;
     public Text directionsText;
+
+
+    public AudioSource audioSource;
+    public AudioClip clickSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,15 +36,7 @@ public class Scale : MonoBehaviour
         grade.SetActive(false);
         mass = 0.0f;
         current_mass.text = "Mass: " + mass.ToString("#.000") + " g";
-        // labObject = GameObject.Find("LabObject");
 
-        // if (labObject == null)
-        // {
-        //     Debug.LogError("GameObject 'LabObject' not found! Check the name in the hierarchy.");
-        // } else{
-        //     Debug.Log("found lab object");
-        // }
-        // labStep = labObject.GetComponent<Lab>().labStep;
         labStep = Lab.labStep;
         if(labStep == 3){
             goal = 0.002f;
@@ -72,6 +69,8 @@ public class Scale : MonoBehaviour
     }
 
     void OnMouseDown(){
+
+        audioSource.PlayOneShot(clickSound);
         if(unit_in_grams){
             mass += 1.0f;
         }else{

@@ -28,6 +28,9 @@ public class Lab : MonoBehaviour
 
     public GameObject cleaningStation;
 
+    public AudioSource audioSource;
+    public AudioClip glassSound;
+
 
 
 
@@ -56,6 +59,7 @@ public class Lab : MonoBehaviour
             {
                instructions.text = "Press E to collect necessary glassware";
                 if(Input.GetKey(KeyCode.E)){
+                    audioSource.PlayOneShot(glassSound);
                     labStep = 2;
                 }
             }
@@ -69,6 +73,7 @@ public class Lab : MonoBehaviour
             {
                instructions.text = "Press E to collect necessary chemicals";
                 if(Input.GetKey(KeyCode.E)){
+                    audioSource.PlayOneShot(glassSound);
                     labStep = 3;
                 }
             } 
