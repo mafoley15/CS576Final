@@ -103,9 +103,9 @@ public class Scale : MonoBehaviour
     public void finishedScale(){
         if(mass == goal){
             scaleGrade = "A";
-        } else if((goal-mass) >= (goal-(.1*goal)) || (goal-mass) <= (goal+(.1*goal))){
+        } else if((mass >= (goal-(.1*goal))) && (mass <= (goal+(.1*goal)))){
             scaleGrade = "B";
-        } else if ((goal-mass) >= (goal-(.2*goal)) || (goal-mass) <= (goal+(.2*goal))){
+        } else if ((mass >= (goal-(.2*goal))) && (mass <= (goal+(.2*goal)))){
             scaleGrade = "C";
         } else {
             scaleGrade = "F";

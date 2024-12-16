@@ -10,6 +10,7 @@ public class MeasurePour : MonoBehaviour
     private GameObject beaker_liquid;
     private float shifted_scale;
     private GameObject particles;
+    public Text amountText;
     public Text gradeUI;
     private string mixingGrade;
 
@@ -60,6 +61,7 @@ public class MeasurePour : MonoBehaviour
             is_pouring = true;
         } else{
             is_pouring = false;
+            particles.SetActive(false);
         }
 
         if(is_pouring){
