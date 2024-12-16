@@ -34,7 +34,6 @@ public class CleaningScript : MonoBehaviour
 
     public Text gradeUI;
 
-
     // Start is called before the first frame update
     void Start()
     {
