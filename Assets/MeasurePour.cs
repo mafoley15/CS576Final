@@ -10,8 +10,14 @@ public class MeasurePour : MonoBehaviour
     private GameObject beaker_liquid;
     private float shifted_scale;
     private GameObject particles;
+    public Text amountText;
     public Text gradeUI;
     private string mixingGrade;
+    public GameObject game;
+    public GameObject grade;
+    private int amount;
+    private int count;
+    public int goal;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +28,20 @@ public class MeasurePour : MonoBehaviour
         shifted_scale = 0.0f;
         particles = GameObject.Find("Particle System");
         particles.SetActive(false);
+        transform.Rotate(new Vector3(0, 0, Random.Range(0.0f, 360.0f)), Space.Self);
+        grade.SetActive(false);
+        game.SetActive(true);
+        amount = 0;
+        count = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(count % 50 == 0){
+            amount = count / 5;
+            amountText.text = "Amount in Beaker: " + amount.ToString() + " ml";
+        }
         if(!is_pouring){
             if(Input.GetKey(KeyCode.RightArrow)){
                 transform.Rotate(new Vector3(0, 0, -30 * Time.deltaTime), Space.Self);
@@ -41,16 +56,16 @@ public class MeasurePour : MonoBehaviour
         if(is_pouring && !beaker_filled){
             float z = GetComponent<Transform>().rotation.z;
             //Debug.Log(z);
-            particles.SetActive(true);
-            if(z <= -0.65f || z >= 0.65f){
-                if((z <= -0.65f && z>= -0.77) || (z <= 0.65f && z>= 0.77)){
-                    // fill beaker
-                    shifted_scale += 0.01f;
-                    beaker_liquid.transform.localScale = new Vector3(8.0f, shifted_scale, 8.0f);
-                    is_pouring = false;
-                }
+            if((z <= -0.65f && z>= -0.80) || (z >= 0.65f && z<= 0.80)){
+                // fill beaker
+                particles.SetActive(true);
+                shifted_scale += 0.001f;
+                beaker_liquid.transform.localScale = new Vector3(8.0f, shifted_scale, 8.0f);
+                is_pouring = false;
+                count += 1;
             }
             is_pouring = false;
+            particles.SetActive(false);
         }
         if(beaker_liquid.transform.localScale.y >= 8.0f){
             particles.SetActive(false);
@@ -62,16 +77,18 @@ public class MeasurePour : MonoBehaviour
     }
 
     public void finishedMeasuring(){
-        // float timeToBeat = Time.timeSinceLevelLoad;
-        // if (timeToBeat < (10/3 * goal)){
-        //     mixingGrade = "A";
-        // } else if(timeToBeat < (15/3 * goal)){
-        //     mixingGrade = "B";
-        // } else if (timeToBeat < (20/3 * goal)){
-        //     mixingGrade = "C";
-        // } else {
-        //     mixingGrade = "F";
-        // }
-        // gradeUI.text = "Grade: " + mixingGrade;
+        beaker_filled = true;
+        if (amount == goal){
+            mixingGrade = "A";
+        } else if((amount >= (goal-(.2*goal))) && (amount <= (goal+(.2*goal)))){
+            mixingGrade = "B";
+        } else if ((amount >= (goal-(.4*goal))) && (amount <= (goal+(.4*goal)))){
+            mixingGrade = "C";
+        } else {
+            mixingGrade = "F";
+        }
+        gradeUI.text = "Grade: " + mixingGrade;
+        grade.SetActive(true);
+        game.SetActive(false);
     }
 }
