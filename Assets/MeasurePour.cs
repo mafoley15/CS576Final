@@ -22,6 +22,9 @@ public class MeasurePour : MonoBehaviour
     public Button doneButton;
     public string scaleGrade;
     public int labStep;
+
+    public Text directionsText;
+    private string directions;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,9 +41,12 @@ public class MeasurePour : MonoBehaviour
         labStep = Lab.labStep;
         if(labStep == 4){
             goal = 500;
+            directions = "Measure out 500 ml of distilled water. Tip over the flask and fill the beaker the correct amount. Raise the flask to stop pouring. When finished press the done button.";
         } else{
             goal = 750;
+            directions = "Measure out 750 ml distilled water. Tip over the flask and fill the beaker the correct amount. Raise the flask to stop pouring. When finished press the done button.";
         }
+        directionsText.text = directions;
     }
 
     // Update is called once per frame
@@ -68,8 +74,8 @@ public class MeasurePour : MonoBehaviour
             particles.SetActive(true);
             if((z <= -0.65f && z>= -0.77)){
                     // fill beaker
-                    shifted_scale += 0.01f;
-                    waterAmount = shifted_scale * 100;
+                    shifted_scale += 0.001f;
+                    waterAmount = (int)(shifted_scale * 100);
                     amount.text = "Amount in Beaker: " + Mathf.Min(800, waterAmount) + " ml";
                     beaker_liquid.transform.localScale = new Vector3(8.0f, shifted_scale, 8.0f);
             }

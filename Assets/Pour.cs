@@ -23,6 +23,9 @@ public class Pour : MonoBehaviour
     public Material beakerSolutionWhite;
 
     private GameObject particles;
+
+    public Text directionsText;
+    private string directions;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,11 +43,14 @@ public class Pour : MonoBehaviour
             beaker_liquid.GetComponent<Renderer>().material = beakerSolutionPurple;
             particles.GetComponent<Renderer>().material = beakerSolutionPurple;
             graduated_cylinder_solution.GetComponent<Renderer>().material = beakerSolutionPurple;
+            directions = "Dissolve a small amount of potassium permanganate into water. Use the arrow keys to move the flask to pour into the beaker.";
         } else{
             beaker_liquid.GetComponent<Renderer>().material = beakerSolutionWhite;
             particles.GetComponent<Renderer>().material = beakerSolutionWhite;
             graduated_cylinder_solution.GetComponent<Renderer>().material = beakerSolutionWhite;
+            directions = "Dissolve the sugar and sodium hydroxide in the water. Use the arrow keys to move the flask to pour into the beaker.";
         }
+        directionsText.text = directions;
     }
 
     // Update is called once per frame

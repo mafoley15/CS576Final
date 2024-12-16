@@ -21,6 +21,9 @@ public class Scale : MonoBehaviour
     private int labStep;
 
     public GameObject labObject;
+
+    private string directions;
+    public Text directionsText;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +31,6 @@ public class Scale : MonoBehaviour
         grade.SetActive(false);
         mass = 0.0f;
         current_mass.text = "Mass: " + mass.ToString("#.000") + " g";
-        unit_in_grams = false;
-        measurement.text = "milligrams";
         // labObject = GameObject.Find("LabObject");
 
         // if (labObject == null)
@@ -42,12 +43,18 @@ public class Scale : MonoBehaviour
         labStep = Lab.labStep;
         if(labStep == 3){
             goal = 0.002f;
+            directions = "Measure out 2 mg of potassium permanganate. Click on the test tube to add and the forcepts to remove substance.";
+            unit_in_grams = false;
         } else if(labStep == 6){
             goal = 6.0f;
+            directions = "Measure out 6 g sugar (sucrose). Click on the test tube to add and the forcepts to remove substance.";
+            unit_in_grams = true;
         } else {
             goal = 10.0f;
+            directions = "Measure out 10 g sodium hydroxide (NaOH). Click on the test tube to add and the forcepts to remove substance.";
+            unit_in_grams = true;
         }
-
+        directionsText.text = directions;
     }
 
     // Update is called once per frame
@@ -61,14 +68,6 @@ public class Scale : MonoBehaviour
         }
         if(mass < 0.0f){
             mass = 0.0f;
-        }
-    }
-
-    public void buttonClicked(){
-        if(unit_in_grams){
-            unit_in_grams = false;
-        }else{
-            unit_in_grams = true;
         }
     }
 

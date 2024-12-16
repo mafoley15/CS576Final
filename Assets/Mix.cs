@@ -21,6 +21,9 @@ public class Mix : MonoBehaviour
     public bool boiledOver;
     public bool tooSlow;
 
+    public Text directionsText;
+    private string directions;
+
     public Material white;
         GameObject liquid;
     // Start is called before the first frame update
@@ -33,6 +36,14 @@ public class Mix : MonoBehaviour
         liquid.GetComponent<Renderer>().material = blue;
         //Lab.labStep = 11; //remove later
         boiledOver = false;
+        if(Lab.labStep == 6){
+            directions = "Tap the flask to mix the solution.";
+        }else if(Lab.labStep == 9){
+            directions = "Tap the flask to mix the solution. Mix slowly otherwise the reaction will boil over!";
+        }else{
+            directions = "Tap the flask to mix the solution. Mix constantly and fast, otherwise the reaction won't go to completion!";
+        }
+        directionsText.text = directions;
     }
 
     // Update is called once per frame
