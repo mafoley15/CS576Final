@@ -114,10 +114,13 @@ public class Mix : MonoBehaviour
         float timeToBeat = Time.timeSinceLevelLoad;
         if (timeToBeat < (10/3 * goal)){
             mixingGrade = "A";
+            Lab.labGrade += 3;
         } else if(timeToBeat < (15/3 * goal)){
             mixingGrade = "B";
+            Lab.labGrade += 2;
         } else if (timeToBeat < (20/3 * goal)){
             mixingGrade = "C";
+            Lab.labGrade += 1;
         } else {
             mixingGrade = "F";
         }

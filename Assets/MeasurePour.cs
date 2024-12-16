@@ -91,7 +91,6 @@ public class MeasurePour : MonoBehaviour
     }
     private IEnumerator Wait()
     {
-        // Wait for 1 second
 
 
         yield return new WaitForSeconds(2f); // Wait for 3 seconds
@@ -102,10 +101,13 @@ public class MeasurePour : MonoBehaviour
         float difference = Mathf.Abs(waterAmount - goal);
         if(difference < 10){
             scaleGrade = "A";
+            Lab.labGrade += 3;
         } else if(difference < 25){
             scaleGrade = "B";
+            Lab.labGrade += 2;
         } else if (difference < 75){
             scaleGrade = "C";
+            Lab.labGrade += 1;
         } else {
             scaleGrade = "F";
         }

@@ -102,10 +102,13 @@ public class Scale : MonoBehaviour
     public void finishedScale(){
         if(mass == goal){
             scaleGrade = "A";
+            Lab.labGrade += 3;
         } else if((mass >= (goal-(.1*goal))) && (mass <= (goal+(.1*goal)))){
             scaleGrade = "B";
+            Lab.labGrade += 2;
         } else if ((mass >= (goal-(.2*goal))) && (mass <= (goal+(.2*goal)))){
             scaleGrade = "C";
+            Lab.labGrade += 1;
         } else {
             scaleGrade = "F";
         }

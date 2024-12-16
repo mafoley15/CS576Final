@@ -10,7 +10,7 @@ public class Lab : MonoBehaviour
 
     public int labNum; // lab 1 = color chameleon / lab 2 = flame tests & atomic spectra
     public static int labStep; //counter for what step of procedure user is on
-    public static int newLabStep;
+    public static int labGrade;
     public Text instructions;
 
     public GameObject exclamation; //moving exclamation to help user navigate lab
@@ -30,12 +30,15 @@ public class Lab : MonoBehaviour
 
 
 
+
+
     
     void Start()
     {
         if(labStep == 0){
-            labNum = 1; //will change to set according to which lab user selects on main menu
+            //labNum = 1; //will change to set according to which lab user selects on main menu
             labStep = 1;
+            labGrade = 0;
             exclamation.SetActive(false);
         }
     }

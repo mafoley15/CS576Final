@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CleaningScript : MonoBehaviour
 {
@@ -34,6 +35,11 @@ public class CleaningScript : MonoBehaviour
 
     public Text gradeUI;
 
+<<<<<<< Updated upstream
+=======
+    public Text finalGradeUI;
+
+>>>>>>> Stashed changes
     // Start is called before the first frame update
     void Start()
     {
@@ -106,20 +112,39 @@ public class CleaningScript : MonoBehaviour
         }
     }
 
+    private IEnumerator Wait()
+    {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        Debug.Log(Lab.labGrade);
+        yield return new WaitForSeconds(5f); // Wait for 2 seconds
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void finishedCleaning(){
         float timeToBeat = Time.timeSinceLevelLoad;
         if (timeToBeat < 10){
             cleaningGrade = "A";
+            Lab.labGrade += 3;
         } else if(timeToBeat < 15){
             cleaningGrade = "B";
+            Lab.labGrade += 2;
         } else if (timeToBeat < 20){
             cleaningGrade = "C";
+            Lab.labGrade += 1;
         } else {
             cleaningGrade = "F";
         }
-
         gradeUI.text = "Grade: " + cleaningGrade;
-        //Debug.Log(timeToBeat);
+        if(Lab.labGrade >= 29){
+            finalGradeUI.text = "Final Grade: A \n Congrats On An Amazing Job!";
+        } else if(Lab.labGrade >=26){
+            finalGradeUI.text = "Final Grade: B \n Awesome Job!";
+        } else if(Lab.labGrade >= 23){
+            finalGradeUI.text = "Final Grade: C \n Nice Effort!";
+        } else{
+            finalGradeUI.text = "Final Grade: F \n You Should Try Again \n I Know You Can Improve!";
+        }
+        StartCoroutine(Wait());
     }
 
 }

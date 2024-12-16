@@ -136,10 +136,13 @@ public class Pour : MonoBehaviour
         float timeToBeat = Time.timeSinceLevelLoad;
         if (timeToBeat < 10){
             pouringGrade = "A";
+            Lab.labGrade += 3;
         } else if(timeToBeat < 15){
             pouringGrade = "B";
+            Lab.labGrade += 2;
         } else if (timeToBeat < 20){
             pouringGrade = "C";
+            Lab.labGrade += 1;
         } else {
             pouringGrade = "F";
         }
