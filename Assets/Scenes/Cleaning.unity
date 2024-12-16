@@ -2406,7 +2406,7 @@ GameObject:
   - component: {fileID: 136523914}
   - component: {fileID: 136523915}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: CleaningObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

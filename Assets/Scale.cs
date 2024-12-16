@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Scale : MonoBehaviour
 {
@@ -15,6 +17,10 @@ public class Scale : MonoBehaviour
     private string scaleGrade;
     // goal needs to be set depending on procedure step
     public float goal;
+
+    private int labStep;
+
+    public GameObject labObject;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +30,19 @@ public class Scale : MonoBehaviour
         current_mass.text = "Mass: " + mass.ToString("#.000") + " g";
         unit_in_grams = false;
         measurement.text = "milligrams";
+        // labObject = GameObject.Find("LabObject");
+
+        // if (labObject == null)
+        // {
+        //     Debug.LogError("GameObject 'LabObject' not found! Check the name in the hierarchy.");
+        // } else{
+        //     Debug.Log("found lab object");
+        // }
+        // labStep = labObject.GetComponent<Lab>().labStep;
+        labStep = Lab.labStep;
+        if(labStep == 3){
+            goal = 0.002f;
+        }
     }
 
     // Update is called once per frame
@@ -63,6 +82,13 @@ public class Scale : MonoBehaviour
         finishedScale();
     }
 
+    private IEnumerator Wait()
+    {
+        // Wait for 1 second
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("Laboratory Scene");
+    }
+
     public void finishedScale(){
         if(mass == goal){
             scaleGrade = "A";
@@ -74,5 +100,11 @@ public class Scale : MonoBehaviour
             scaleGrade = "F";
         }
         gradeUI.text = "Grade: " + scaleGrade;
+        //yield return new WaitForSeconds(2);
+        if(labStep == 3){
+            Lab.labStep = 4;
+            StartCoroutine(Wait());
+        }
+
     }
 }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Mix : MonoBehaviour
 {
@@ -23,27 +25,36 @@ public class Mix : MonoBehaviour
         count = 0;
         goal = 5;
         liquid = GameObject.Find("Erlenmeyer_flask3");
-        liquid.GetComponent<Renderer>().material = purple;
+        liquid.GetComponent<Renderer>().material = blue;
+        Lab.labStep = 6; //remove later
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(count);
-        if(count == goal){
-            finishedMixing();
-            count += 1;
-            liquid.GetComponent<Renderer>().material = clear;
+        if(Lab.labStep == 6){
+            goal = 3;
+            if(count == goal){
+                finishedMixing();
+                count += 1;
+                liquid.GetComponent<Renderer>().material = purple;
+            }
         }
-        if(count == 1){
-            liquid.GetComponent<Renderer>().material = blue;
-        }
-        if(count == 2){
-            liquid.GetComponent<Renderer>().material = green;
-        }
-        if(count == 4){
-            liquid.GetComponent<Renderer>().material = orange_yellow;
-        }
+        //Debug.Log(count);
+        // if(count == goal){
+        //     finishedMixing();
+        //     count += 1;
+        //     liquid.GetComponent<Renderer>().material = clear;
+        // }
+        // if(count == 1){
+        //     liquid.GetComponent<Renderer>().material = blue;
+        // }
+        // if(count == 2){
+        //     liquid.GetComponent<Renderer>().material = green;
+        // }
+        // if(count == 4){
+        //     liquid.GetComponent<Renderer>().material = orange_yellow;
+        // }
     }
 
     void OnMouseDown(){
@@ -52,6 +63,12 @@ public class Mix : MonoBehaviour
 
     void OnEndOfAnimation(){
         count += 1;
+    }
+
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(2f); // Wait for 2 seconds
+        SceneManager.LoadScene("Laboratory Scene");
     }
 
     public void finishedMixing(){
@@ -66,5 +83,8 @@ public class Mix : MonoBehaviour
             mixingGrade = "F";
         }
         gradeUI.text = "Grade: " + mixingGrade;
+        if(Lab.labStep == 6){
+            StartCoroutine(Wait());
+        }
     }
 }
