@@ -303,7 +303,11 @@ MonoBehaviour:
   blue: {fileID: 2100000, guid: 94c11be5b5b74c440a5c2fc75dc65d88, type: 2}
   green: {fileID: 2100000, guid: cf29e9613b332406683246314d4765c9, type: 2}
   orange_yellow: {fileID: 2100000, guid: 68ddf684650f341dbb33b87675f2f520, type: 2}
-  clear: {fileID: 2100000, guid: 5c4854f1dd0cbe84a92d1ba0e1baffc6, type: 2}
+  clear: {fileID: 2100000, guid: 62dad06c47d1d1a448901a67f077f0b6, type: 2}
+  black: {fileID: 2100000, guid: 9cccea665b138ec4c9a38c405f8554cf, type: 2}
+  boiledOver: 0
+  tooSlow: 0
+  white: {fileID: 2100000, guid: c098a5cc7d6d4458aac894246db2484d, type: 2}
 --- !u!95 &554435206
 Animator:
   serializedVersion: 5

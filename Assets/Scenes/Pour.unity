@@ -1058,6 +1058,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gradeUI: {fileID: 1493591656}
+  beakerSolutionPurple: {fileID: 2100000, guid: 8fae9f5093ac346188f03f638a9768ff, type: 2}
+  beakerSolutionWhite: {fileID: 2100000, guid: c098a5cc7d6d4458aac894246db2484d, type: 2}
 --- !u!1 &1171181269
 GameObject:
   m_ObjectHideFlags: 0

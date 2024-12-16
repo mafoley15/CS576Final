@@ -42,7 +42,12 @@ public class Scale : MonoBehaviour
         labStep = Lab.labStep;
         if(labStep == 3){
             goal = 0.002f;
+        } else if(labStep == 6){
+            goal = 6.0f;
+        } else {
+            goal = 10.0f;
         }
+
     }
 
     // Update is called once per frame
@@ -86,7 +91,13 @@ public class Scale : MonoBehaviour
     {
         // Wait for 1 second
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("Laboratory Scene");
+        if(Lab.labStep == 4 || Lab.labStep == 7){
+            SceneManager.LoadScene("Laboratory Scene");
+        } else if(Lab.labStep == 6){
+            Lab.labStep = 7;
+            SceneManager.LoadScene("Scale");
+        }
+        
     }
 
     public void finishedScale(){
@@ -103,6 +114,8 @@ public class Scale : MonoBehaviour
         //yield return new WaitForSeconds(2);
         if(labStep == 3){
             Lab.labStep = 4;
+            StartCoroutine(Wait());
+        } else{
             StartCoroutine(Wait());
         }
 

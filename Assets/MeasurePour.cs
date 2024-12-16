@@ -37,6 +37,8 @@ public class MeasurePour : MonoBehaviour
         labStep = Lab.labStep;
         if(labStep == 4){
             goal = 500;
+        } else{
+            goal = 750;
         }
     }
 

@@ -26,6 +26,8 @@ public class Lab : MonoBehaviour
 
     public GameObject dissolvingTable;
 
+    public GameObject cleaningStation;
+
 
 
     
@@ -33,7 +35,7 @@ public class Lab : MonoBehaviour
     {
         if(labStep == 0){
             labNum = 1; //will change to set according to which lab user selects on main menu
-            labStep = 1;
+            labStep = 11;
             exclamation.SetActive(false);
         }
     }
@@ -66,7 +68,7 @@ public class Lab : MonoBehaviour
                 if(Input.GetKey(KeyCode.E)){
                     labStep = 3;
                 }
-            }
+            } 
         } else if (labStep == 3){
             instructions.text = "Instructions: Head to measuring station to measure out necessary amounts of chemicals";
             exclamation.transform.position = new Vector3(-10.018f,1.916f, 9.269f);
@@ -102,6 +104,69 @@ public class Lab : MonoBehaviour
                 instructions.text = "Press E to begin dissolving";
                 if(Input.GetKey(KeyCode.E)){
                     SceneManager.LoadScene("Pour");
+                }
+            }
+        } else if (labStep == 6){
+            instructions.text = "Instructions: Head to measuring station to measure out necessary amounts of chemicals";
+            exclamation.transform.position = new Vector3(-10.018f,1.916f, 9.269f);
+            Collider playerCollider = player.GetComponent<Collider>();
+            Collider measuringStationCollider = measuringStation.GetComponent<Collider>();
+            if (playerCollider.bounds.Intersects(measuringStationCollider.bounds))
+            {
+                instructions.text = "Press E to begin measuring";
+                if(Input.GetKey(KeyCode.E)){
+                    SceneManager.LoadScene("Scale");
+                }
+            }
+        } else if (labStep == 7){
+            instructions.text = "Instructions: Head to measuring station to measure out necessary amounts of water";
+            exclamation.transform.position = new Vector3(-10.018f,1.916f, 9.269f);
+            Collider playerCollider = player.GetComponent<Collider>();
+            Collider measuringStationCollider = measuringStation.GetComponent<Collider>();
+            if (playerCollider.bounds.Intersects(measuringStationCollider.bounds))
+            {
+                instructions.text = "Press E to begin measuring";
+                if(Input.GetKey(KeyCode.E)){
+                    SceneManager.LoadScene("Measure");
+                }
+            }
+        } else if (labStep == 8){
+            instructions.text = "Instructions: Head to table to dissolve the compounds into water";
+            exclamation.transform.position = new Vector3(-1.896f,1.916f, 7.741f);
+            Collider playerCollider = player.GetComponent<Collider>();
+            exclamation.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            Collider dissolvingStationCollider = dissolvingTable.GetComponent<Collider>();
+            if (playerCollider.bounds.Intersects(dissolvingStationCollider.bounds))
+            {
+                instructions.text = "Press E to begin dissolving";
+                if(Input.GetKey(KeyCode.E)){
+                    SceneManager.LoadScene("Pour");
+                }
+            }
+        } else if (labStep == 10){
+            instructions.text = "Instructions: Head to table to mix two solutions together";
+            exclamation.transform.position = new Vector3(-1.896f,1.916f, 7.741f);
+            Collider playerCollider = player.GetComponent<Collider>();
+            exclamation.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            Collider dissolvingStationCollider = dissolvingTable.GetComponent<Collider>();
+            if (playerCollider.bounds.Intersects(dissolvingStationCollider.bounds))
+            {
+                instructions.text = "Press E to begin final mixing process";
+                if(Input.GetKey(KeyCode.E)){
+                    SceneManager.LoadScene("Mix");
+                }
+            }
+        } else if (labStep == 11){
+            instructions.text = "Instructions: Head to sink to clean lab equipment";
+            exclamation.transform.position = new Vector3(3.291f,1.916f, 5.481f);
+            Collider playerCollider = player.GetComponent<Collider>();
+            exclamation.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            Collider cleaningStationCollider = cleaningStation.GetComponent<Collider>();
+            if (playerCollider.bounds.Intersects(cleaningStationCollider.bounds))
+            {
+                instructions.text = "Press E to clean lab equipment";
+                if(Input.GetKey(KeyCode.E)){
+                    SceneManager.LoadScene("Cleaning");
                 }
             }
         }

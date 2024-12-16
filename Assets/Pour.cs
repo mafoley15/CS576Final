@@ -8,6 +8,8 @@ public class Pour : MonoBehaviour
 {
     bool beaker_filled;
     GameObject graduated_cylinder;
+
+    GameObject graduated_cylinder_solution;
     GameObject beaker;
     GameObject beaker_liquid;
     float shifted_scale;
@@ -17,11 +19,15 @@ public class Pour : MonoBehaviour
     public Text gradeUI;
     string pouringGrade;
 
+    public Material beakerSolutionPurple;
+    public Material beakerSolutionWhite;
+
     private GameObject particles;
     // Start is called before the first frame update
     void Start()
     {
         graduated_cylinder = GameObject.Find("Graduated_Cylinder");
+        graduated_cylinder_solution = GameObject.Find("Graduated_Cylinder_water");
         beaker = GameObject.Find("Beaker");
         beaker_liquid = GameObject.Find("BeakerSolution");
         shifted_scale = 0.0f;
@@ -30,6 +36,15 @@ public class Pour : MonoBehaviour
         beaker_filled = false;
         num_goals = 3;
         particles = GameObject.Find("Particle System");
+        if(Lab.labStep == 5){
+            beaker_liquid.GetComponent<Renderer>().material = beakerSolutionPurple;
+            particles.GetComponent<Renderer>().material = beakerSolutionPurple;
+            graduated_cylinder_solution.GetComponent<Renderer>().material = beakerSolutionPurple;
+        } else{
+            beaker_liquid.GetComponent<Renderer>().material = beakerSolutionWhite;
+            particles.GetComponent<Renderer>().material = beakerSolutionWhite;
+            graduated_cylinder_solution.GetComponent<Renderer>().material = beakerSolutionWhite;
+        }
     }
 
     // Update is called once per frame
@@ -125,6 +140,9 @@ public class Pour : MonoBehaviour
         gradeUI.text = "Grade: " + pouringGrade;
         if(Lab.labStep == 5){
             Lab.labStep = 6;
+            StartCoroutine(Wait());
+        } else{
+            Lab.labStep = 9;
             StartCoroutine(Wait());
         }
     }

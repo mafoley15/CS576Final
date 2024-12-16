@@ -17,6 +17,11 @@ public class Mix : MonoBehaviour
     public Material green;
     public Material orange_yellow;
     public Material clear;
+    public Material black;
+    public bool boiledOver;
+    public bool tooSlow;
+
+    public Material white;
         GameObject liquid;
     // Start is called before the first frame update
     void Start()
@@ -26,7 +31,8 @@ public class Mix : MonoBehaviour
         goal = 5;
         liquid = GameObject.Find("Erlenmeyer_flask3");
         liquid.GetComponent<Renderer>().material = blue;
-        Lab.labStep = 6; //remove later
+        //Lab.labStep = 11; //remove later
+        boiledOver = false;
     }
 
     // Update is called once per frame
@@ -35,26 +41,48 @@ public class Mix : MonoBehaviour
         if(Lab.labStep == 6){
             goal = 3;
             if(count == goal){
-                finishedMixing();
-                count += 1;
                 liquid.GetComponent<Renderer>().material = purple;
+                finishedMixing();
+            }
+        } else if(Lab.labStep == 9){
+            goal = 3;
+            if(count == goal){
+                Lab.labStep = 10;
+                float timeToBeat = Time.timeSinceLevelLoad;
+                Debug.Log(timeToBeat);
+                if(timeToBeat < 9){
+                    liquid.GetComponent<Renderer>().material = black;
+                    boiledOver = true;
+                }else{
+                    liquid.GetComponent<Renderer>().material = white;
+                }
+                finishedMixing();
+            }
+        } else{
+            goal = 5;
+            float time = Time.timeSinceLevelLoad;
+            if(time > 18){
+                liquid.GetComponent<Renderer>().material = black;
+                tooSlow = true;
+                Lab.labStep = 11;
+                finishedMixing();
+            }
+            if(count == goal){
+                finishedMixing();
+                Lab.labStep = 11;
+                count += 1;
+                liquid.GetComponent<Renderer>().material = clear;
+            }
+            if(count == 1){
+                liquid.GetComponent<Renderer>().material = blue;
+            }
+            if(count == 2){
+                liquid.GetComponent<Renderer>().material = green;
+            }
+            if(count == 4){
+                liquid.GetComponent<Renderer>().material = orange_yellow;
             }
         }
-        //Debug.Log(count);
-        // if(count == goal){
-        //     finishedMixing();
-        //     count += 1;
-        //     liquid.GetComponent<Renderer>().material = clear;
-        // }
-        // if(count == 1){
-        //     liquid.GetComponent<Renderer>().material = blue;
-        // }
-        // if(count == 2){
-        //     liquid.GetComponent<Renderer>().material = green;
-        // }
-        // if(count == 4){
-        //     liquid.GetComponent<Renderer>().material = orange_yellow;
-        // }
     }
 
     void OnMouseDown(){
@@ -82,9 +110,10 @@ public class Mix : MonoBehaviour
         } else {
             mixingGrade = "F";
         }
-        gradeUI.text = "Grade: " + mixingGrade;
-        if(Lab.labStep == 6){
-            StartCoroutine(Wait());
+        if(boiledOver || tooSlow){
+            mixingGrade = "F";
         }
+        gradeUI.text = "Grade: " + mixingGrade;
+        StartCoroutine(Wait());
     }
 }
