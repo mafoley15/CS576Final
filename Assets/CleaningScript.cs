@@ -35,11 +35,8 @@ public class CleaningScript : MonoBehaviour
 
     public Text gradeUI;
 
-<<<<<<< Updated upstream
-=======
     public Text finalGradeUI;
 
->>>>>>> Stashed changes
     // Start is called before the first frame update
     void Start()
     {
