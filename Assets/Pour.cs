@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Pour : MonoBehaviour
 {
     bool beaker_filled;
     GameObject graduated_cylinder;
+
+    GameObject graduated_cylinder_solution;
     GameObject beaker;
     GameObject beaker_liquid;
     float shifted_scale;
@@ -15,17 +18,33 @@ public class Pour : MonoBehaviour
     int num_goals;
     public Text gradeUI;
     string pouringGrade;
+
+    public Material beakerSolutionPurple;
+    public Material beakerSolutionWhite;
+
+    private GameObject particles;
     // Start is called before the first frame update
     void Start()
     {
         graduated_cylinder = GameObject.Find("Graduated_Cylinder");
+        graduated_cylinder_solution = GameObject.Find("Graduated_Cylinder_water");
         beaker = GameObject.Find("Beaker");
-        beaker_liquid = GameObject.Find("Beakerwater");
+        beaker_liquid = GameObject.Find("BeakerSolution");
         shifted_scale = 0.0f;
         beaker_liquid.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
         beaker_placed = false;
         beaker_filled = false;
         num_goals = 3;
+        particles = GameObject.Find("Particle System");
+        if(Lab.labStep == 5){
+            beaker_liquid.GetComponent<Renderer>().material = beakerSolutionPurple;
+            particles.GetComponent<Renderer>().material = beakerSolutionPurple;
+            graduated_cylinder_solution.GetComponent<Renderer>().material = beakerSolutionPurple;
+        } else{
+            beaker_liquid.GetComponent<Renderer>().material = beakerSolutionWhite;
+            particles.GetComponent<Renderer>().material = beakerSolutionWhite;
+            graduated_cylinder_solution.GetComponent<Renderer>().material = beakerSolutionWhite;
+        }
     }
 
     // Update is called once per frame
@@ -50,18 +69,18 @@ public class Pour : MonoBehaviour
         }
         if(LiquidReachesBeaker(beaker_position, graduated_cylinder.GetComponent<Transform>().position)){
             if(!beaker_filled){
-                shifted_scale += 0.001f;
+                shifted_scale += 0.0001f;
                 beaker_liquid.transform.localScale = new Vector3(1.0f, shifted_scale, 1.0f);
             }
         }
-        if(beaker_liquid.transform.localScale.y >= 1.0f){
-            beaker_liquid.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        if(beaker_liquid.transform.localScale.y >= 0.15f){
+            beaker_liquid.transform.localScale = new Vector3(1.0f, 0.15f, 1.0f);
             beaker_filled = true;
             num_goals -= 1;
-        }else if(beaker_liquid.transform.localScale.y >= 0.3f && num_goals == 3){
+        }else if(beaker_liquid.transform.localScale.y >= 0.05f && num_goals == 3){
             beaker_placed = false;
             num_goals -= 1;
-        }else if(beaker_liquid.transform.localScale.y >= 0.6f && num_goals == 2){
+        }else if(beaker_liquid.transform.localScale.y >= 0.1f && num_goals == 2){
             beaker_placed = false;
             num_goals -= 1;
         }
@@ -75,19 +94,19 @@ public class Pour : MonoBehaviour
         Vector3 position = graduated_cylinder.GetComponent<Transform>().position;
         switch (direction){
             case "up":
-                position.z += 0.001f;
+                position.z += 0.005f;
                 graduated_cylinder.GetComponent<Transform>().position = position;
                 break;
             case "down":
-                position.z -= 0.001f;
+                position.z -= 0.005f;
                 graduated_cylinder.GetComponent<Transform>().position = position;
                 break;
             case "right":
-                position.x += 0.001f;
+                position.x += 0.007f;
                 graduated_cylinder.GetComponent<Transform>().position = position;
                 break;
             case "left":
-                position.x -= 0.001f;
+                position.x -= 0.007f;
                 graduated_cylinder.GetComponent<Transform>().position = position;
                 break;
         }
@@ -100,8 +119,14 @@ public class Pour : MonoBehaviour
         return false;
     }
 
-    // based off of Adam's finishedCleaning method
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(2f); // Wait for 2 seconds
+        SceneManager.LoadScene("Mix");
+    }
+
     public void finishedPouring(){
+        particles.SetActive(false);
         float timeToBeat = Time.timeSinceLevelLoad;
         if (timeToBeat < 10){
             pouringGrade = "A";
@@ -113,5 +138,12 @@ public class Pour : MonoBehaviour
             pouringGrade = "F";
         }
         gradeUI.text = "Grade: " + pouringGrade;
+        if(Lab.labStep == 5){
+            Lab.labStep = 6;
+            StartCoroutine(Wait());
+        } else{
+            Lab.labStep = 9;
+            StartCoroutine(Wait());
+        }
     }
 }
