@@ -31,7 +31,7 @@ public class Lab : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip glassSound;
 
-
+    public GameObject flameStation;
 
 
 
@@ -177,6 +177,22 @@ public class Lab : MonoBehaviour
                     SceneManager.LoadScene("Cleaning");
                 }
             }
+        } else if (labStep == 12){
+            instructions.text = "Instructions: Go to the central lab bench to do a bonus lab!";
+            exclamation.transform.position = new Vector3(-3.594f,1.916f, 11.867f);
+            Collider playerCollider = player.GetComponent<Collider>();
+            exclamation.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            Collider flameStationCollider = flameStation.GetComponent<Collider>();
+            if (playerCollider.bounds.Intersects(flameStationCollider.bounds))
+            {
+                instructions.text = "Press E to run a flame test";
+                if(Input.GetKey(KeyCode.E)){
+                    SceneManager.LoadScene("FlameLab");
+                }
+            }
+        } else if (labStep == 13){
+             instructions.text = "Yo Mr. White, we beat Breaking Mama!";
+             exclamation.gameObject.SetActive(false);
         }
         
     }

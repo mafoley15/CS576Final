@@ -131,7 +131,8 @@ public class CleaningScript : MonoBehaviour
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         Debug.Log(Lab.labGrade);
         yield return new WaitForSeconds(5f); // Wait for 2 seconds
-        SceneManager.LoadScene("MainMenu");
+        Lab.labStep = 12;
+        SceneManager.LoadScene("Laboratory Scene");
     }
 
     public void finishedCleaning(){
