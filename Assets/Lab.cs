@@ -52,7 +52,7 @@ public class Lab : MonoBehaviour
         if(labStep == 1){
             Collider playerCollider = player.GetComponent<Collider>();
             Collider glassCabinetCollider = glassCabinet.GetComponent<Collider>();
-            instructions.text = "Instructions: Welcome to the lab. To start this lab, collect some beakers from the glass cabinet";
+            instructions.text = "Instructions: Welcome to the lab. To start, collect some beakers from the glass cabinet. At any point, press esc to pause";
             exclamation.SetActive(true);
             exclamation.transform.position = new Vector3(-1.494f,3.361f, 15.135f);
             if (playerCollider.bounds.Intersects(glassCabinetCollider.bounds))

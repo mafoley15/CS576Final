@@ -44,10 +44,10 @@ public class MeasurePour : MonoBehaviour
         labStep = Lab.labStep;
         if(labStep == 4){
             goal = 500;
-            directions = "Measure out 500 ml of distilled water. Tip over the flask and fill the beaker the correct amount. Raise the flask to stop pouring. When finished press the done button.";
+            directions = "Measure out 500 ml of distilled water. Tip over the flask with arrow keys and fill the beaker the correct amount. Raise the flask to stop pouring. When finished press the done button.";
         } else{
             goal = 750;
-            directions = "Measure out 750 ml distilled water. Tip over the flask and fill the beaker the correct amount. Raise the flask to stop pouring. When finished press the done button.";
+            directions = "Measure out 750 ml distilled water. Tip over the flask with arrow keys and fill the beaker the correct amount. Raise the flask to stop pouring. When finished press the done button.";
         }
         directionsText.text = directions;
     }
